@@ -4,6 +4,13 @@ import { Feather } from '@expo/vector-icons';
 
 // Use https://icons.expo.fyi/ for icons
 
+/* Notes on passing the "onTermChange" and "onTermSubmit":
+   onChangeText={onTermChange}
+   onEndEditing={onTermSubmit}
+   The above are equivalent to:
+   onChangeText={newTerm => onTermChange(newTerm)}
+   onEndEditing={() => onTermSubmit()}
+*/
 const SearchBar = ({term, onTermChange, onTermSubmit}) => {
   return (
     <View style={styles.backgroundStyle}>
@@ -14,8 +21,8 @@ const SearchBar = ({term, onTermChange, onTermSubmit}) => {
         style={styles.inputStyle} 
         placeholder='Search'
         value={term}
-        onChangeText={onTermChange}
-        onEndEditing={onTermSubmit}
+        onChangeText={newTerm => onTermChange(newTerm)}
+        onEndEditing={() => onTermSubmit()}
       />
     </View>
   );
