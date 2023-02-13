@@ -10,6 +10,10 @@ import { Feather } from '@expo/vector-icons';
    The above are equivalent to:
    onChangeText={newTerm => onTermChange(newTerm)}
    onEndEditing={() => onTermSubmit()}
+   ----------------------------------------
+   I can do exactly the same with "SearchScreen"
+   onTermChange={setTerm}
+   onTermSubmit={searchApi}
 */
 const SearchBar = ({term, onTermChange, onTermSubmit}) => {
   return (
@@ -21,7 +25,7 @@ const SearchBar = ({term, onTermChange, onTermSubmit}) => {
         style={styles.inputStyle} 
         placeholder='Search'
         value={term}
-        onChangeText={newTerm => onTermChange(newTerm)}
+        onChangeText={(newTerm) => onTermChange(newTerm)}
         onEndEditing={() => onTermSubmit()}
       />
     </View>
