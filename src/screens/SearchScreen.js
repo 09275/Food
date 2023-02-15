@@ -11,8 +11,7 @@ const SearchScreen = () => {
   /*Everytime you make an api request or any type of 
     network request, remember that is an asyncrhonous
     operation. So you need to add in a promise, to handle
-    the search results that you will eventually get back.
-  */
+    the search results that you will eventually get back */
   const searchApi = async (searchTerm) => {
     try {
       const response = await yelp.get('/search', {
@@ -37,8 +36,7 @@ const SearchScreen = () => {
         ** useEffect(() => {}, [])
     #--Run the arrow function only when the component is first rendered,
        and when the 'value' changes--#
-        ** useEffect(() => {}, [value])
-  */
+        ** useEffect(() => {}, [value]) */
   useEffect(() => {
     searchApi('pasta');
   }, []);
