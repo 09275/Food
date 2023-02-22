@@ -1,8 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  FlatList, 
+  TouchableOpacity 
+} from 'react-native';
+import { withNavigation } from 'react-navigation';
 import ResultsDetail from './ResultsDetails';
 
-const ResultsList = ({ title, results }) => {
+/*
+  In order for the "ResultsList" to have directly access to the 
+  "navigation" prop (which is only available to screens which 
+  are wired in the React Stack Navigator using the 
+  createStackNavigator in the App.js file), we use the 
+  {withNavigation} in order to take the "navigation" prop and 
+  inject it directly into the "ResultsList" component.
+*/
+const ResultsList = ({ title, results, navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -12,7 +27,13 @@ const ResultsList = ({ title, results }) => {
         keyExtractor={(result) => result.id}
         data={results}
         renderItem={({item}) => {
-          return <ResultsDetail result={item} />;
+          return (
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('ResultsShow')}
+            >
+              <ResultsDetail result={item} />
+            </TouchableOpacity>
+          );
         }}
       />
     </View>
@@ -31,4 +52,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ResultsList;
+export default withNavigation(ResultsList);
