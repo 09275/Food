@@ -4,7 +4,13 @@ import SearchBar from '../components/SearchBar';
 import useResults from '../hooks/useResults';
 import ResultsList from '../components/ResultsList';
 
-const SearchScreen = () => {
+/* 
+In order to be able to navigate to the "ResultsShowScreen" 
+I need to pass the "navigation" object which is available 
+to "SearchScreen", down to the child component so it can be 
+called only when a user taps into a specific restaurant.
+*/
+const SearchScreen = ({ navigation }) => {
   const [term, setTerm] = useState('');
   const [searchApi, results, errorMessage] = useResults();
 
@@ -34,9 +40,21 @@ const SearchScreen = () => {
       />
       {errorMessage ? <Text>{errorMessage}</Text> : null}
       <ScrollView>
-        <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" />
-        <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
-        <ResultsList results={filterResultsByPrice('$$$')} title="Big Spender" />
+        <ResultsList 
+          results={filterResultsByPrice('$')} 
+          title="Cost Effective" 
+          navigation={navigation}
+        />
+        <ResultsList 
+          results={filterResultsByPrice('$$')} 
+          title="Bit Pricier" 
+          navigation={navigation}
+        />
+        <ResultsList 
+          results={filterResultsByPrice('$$$')} 
+          title="Big Spender" 
+          navigation={navigation}
+        />
       </ScrollView>
     </>
   );
