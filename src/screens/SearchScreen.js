@@ -9,6 +9,11 @@ In order to be able to navigate to the "ResultsShowScreen"
 I need to pass the "navigation" object which is available 
 to "SearchScreen", down to the child component so it can be 
 called only when a user taps into a specific restaurant.
+This is without using the 'withNavigation' from 'react-navigation'.
+The reason this is not the most efficient way is because I 
+have to write extra code, passing navigation as a parameter 
+through the "SearchScreen" to the "ResultsList" without the
+parent component to have any use for it.
 */
 const SearchScreen = ({ navigation }) => {
   const [term, setTerm] = useState('');
