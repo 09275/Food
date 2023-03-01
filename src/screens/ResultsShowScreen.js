@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import yelp from '../api/yelp';
 
 /*
   When I need to communicate some information from one screen
@@ -15,15 +16,42 @@ import { View, Text, StyleSheet } from 'react-native';
   I will need to do it through the navigation property.
 */
 const ResultsShowScreen = ({ navigation }) => {
+  const [result, setResult] = useState(null);
   const id = navigation.getParam('id');
-  console.log(id);
+
+  const getResult = async (id) => {
+    const response = await yelp.get(`/${id}`);
+    setResult(response.data);
+  };
+
+  useEffect(() => {
+    getResult(id);
+  }, []);
+
+  if (!result) {
+    return null;
+  };
+
   return (
     <View>
-      <Text>Results Show</Text>
+      <Text>{result.name}</Text>
+      <FlatList
+        keyExtractor={(photo) => photo}
+        data={result.photos}
+        renderItem={({item}) => {
+          return <Image style={styles.image} source={{uri: item}} />
+        }}
+        
+      />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  image: {
+    height: 200,
+    width: 300
+  }
+});
 
 export default ResultsShowScreen;
